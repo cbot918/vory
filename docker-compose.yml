@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=vory
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - "5432:5432"
+    restart: always
