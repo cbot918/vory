@@ -4,7 +4,7 @@ import db.pg
 import model
 import json
 
-type Yale = int | string
+// type Yale = int | string
 
 pub fn query(conn pg.DB, table_name string) ([]pg.Row,[]pg.Row) {
 
@@ -18,7 +18,7 @@ pub fn query(conn pg.DB, table_name string) ([]pg.Row,[]pg.Row) {
 	return rows, column_name
 }
 
-pub fn json_touser(user_json []map[string]Yale) []model.Users {
+pub fn json_touser(user_json []map[string]string) []model.Users {
 
 	mut users := []model.Users{}
 	for user in user_json {
@@ -31,17 +31,17 @@ pub fn json_touser(user_json []map[string]Yale) []model.Users {
 	return users
 }
 
-pub fn row_tojson(column_name []pg.Row, rows []pg.Row) []map[string]Yale{
+pub fn row_tojson(column_name []pg.Row, rows []pg.Row) []map[string]string{
 	// get names
 	mut names := []string{}
 	for row in column_name { names << row.vals[0] }
 
 	// bind row to users struct
-	mut result := []map[string]Yale{}
+	mut result := []map[string]string{}
 
 	fields := get_fieldname[model.Users]()
 	for row in rows {
-		mut tmp := map[string]Yale{}
+		mut tmp := map[string]string{}
 		for index, item in row.vals {
 			tmp["${fields[index]}"] = item
 		}
